@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'infrastructure/repository_registry'
 require 'infrastructure/users/repositories/in_memory'
 require 'users/exceptions'
 
@@ -19,20 +20,5 @@ describe "Users repository" do
     @repo.register('@foolano')
 
     expect { @repo.register('@foolano') }.to raise_error(Users::AlreadyRegisteredError)
-  end
-end
-
-
-class RepositoryRegistry
-  def self.register type, repo
-    repositories[type] = repo
-  end
-
-  def self.repositories
-    @repositories ||= {}
-  end
-
-  def self.for(type)
-    repositories[type]
   end
 end
