@@ -17,7 +17,7 @@ RSpec.describe FollowsController, type: :controller do
       post :follow, { follower: follower_name, followed: followed_name }
     end
 
-    it "returns a JSON confirming that the following action was succesful " do
+    it "returns a JSON confirming that the action was succesful" do
       allow(action).to receive(:do).with(follower_name, followed_name).and_return(true)
 
       post :follow, { follower: follower_name, followed: followed_name }
