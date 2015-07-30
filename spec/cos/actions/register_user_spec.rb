@@ -22,7 +22,9 @@ describe Actions::RegisterUser do
   end
 
   it "tries to register an already registered user" do
-    allow(users_service).to receive(:register).with('@foolano').and_raise(Users::AlreadyRegisteredError)
+    allow(users_service).to receive(:register)
+      .with('@foolano')
+      .and_raise(Users::AlreadyRegisteredError)
 
     expect(Actions::RegisterUser.do('@foolano')).to be_falsy
   end
