@@ -3,7 +3,7 @@ require 'cos/core/users/exceptions'
 module Users
   class UsersService
     def self.register(username)
-      check_already_registered(username)
+      check_not_already_registered(username)
       Users::Repository.register username
     end
 
@@ -25,7 +25,7 @@ module Users
       !Users::Repository.registered?(follower_name) || !Users::Repository.registered?(followed_name)
     end
 
-    def self.check_already_registered username
+    def self.check_not_already_registered username
       raise Users::AlreadyRegisteredError.new if Users::Repository.registered? username
     end
   end
