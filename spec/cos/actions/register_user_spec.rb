@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'actions/register_user'
-require 'users/exceptions'
+require 'cos/actions/register_user'
+require 'cos/core/users/exceptions'
 
 describe Actions::RegisterUser do
-  
+
   let(:users) { double('UsersRepository') }
 
   before do
@@ -24,7 +24,7 @@ describe Actions::RegisterUser do
 
   it "tries to register an already registered user" do
     allow(users).to receive(:register).with('@foolano').and_raise(Users::AlreadyRegisteredError)
-    
+
     expect(Actions::RegisterUser.do('@foolano')).to be_falsy
   end
 end

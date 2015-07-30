@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'actions/follow_user'
+require 'cos/actions/follow_user'
 
 
 describe Actions::FollowUser do
-  let(:repo) { double('UsersRepo') }  
+  let(:repo) { double('UsersRepo') }
 
 
   before do

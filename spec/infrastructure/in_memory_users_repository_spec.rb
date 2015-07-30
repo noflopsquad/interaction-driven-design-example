@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'infrastructure/repository_registry'
+require 'cos/infrastructure/repository_registry'
 require 'infrastructure/users/repositories/in_memory'
-require_relative 'users_repository_contract'
+require_relative '../cos/infrastructure/users_repository_contract'
 
 describe "In memory users repository" do
 
