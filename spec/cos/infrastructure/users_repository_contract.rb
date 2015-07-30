@@ -10,6 +10,10 @@ RSpec.shared_examples "users repository" do
 
       expect(@repo.registered?(user_name)).to be_truthy
     end
+
+    it "knows when a user is not registered" do
+      expect(@repo.registered?(user_name)).to be_falsy
+    end
   end
 
   describe "Adding a follower to a user" do
