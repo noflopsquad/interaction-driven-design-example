@@ -1,8 +1,11 @@
+require 'cos/core/users/users_service'
+require 'cos/core/users/exceptions'
+
 module Actions
   class RegisterUser
 
     def self.do username
-      Users::Repository.register username
+      Users::UsersService.register username
       true
     rescue Users::AlreadyRegisteredError
       false

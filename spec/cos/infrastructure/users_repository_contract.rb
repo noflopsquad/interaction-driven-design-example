@@ -2,21 +2,15 @@ require 'spec_helper'
 
 RSpec.shared_examples "users repository" do
 
-  describe "User registration" do
+  describe "Registering a user" do
     it "registers a new user if username is not registered" do
       @repo.register('@foolano')
 
       expect(@repo.registered?('@foolano')).to be_truthy
     end
-
-    it "raises AlreadyRegisteredError if user is registered" do
-      @repo.register('@foolano')
-
-      expect { @repo.register('@foolano') }.to raise_error(Users::AlreadyRegisteredError)
-    end
   end
 
-  describe "Adding a follower" do
+  describe "Adding a follower to a user" do
     let(:follower) { '@foolano' }
     let(:followed) { '@mengano' }
 
@@ -30,19 +24,13 @@ RSpec.shared_examples "users repository" do
         expect(@repo.followers_of(followed)).to eq [follower]
       end
     end
+  end
 
-    describe "when any of them is not registered" do
-      it "raises an error when trying to add a registered follower to a followed user that does not exist" do
-        @repo.register(follower)
+  describe "Querying for a user" do
+    it "queries for a user given its name" do
+      @repo.register("koko")
 
-        expect { @repo.add_follower(follower, followed) }.to raise_error(Users::NotRegisteredError)
-      end
-
-      it "raises an error when trying to add a follower that does not exist to a registered followed user" do
-        @repo.register(followed)
-
-        expect { @repo.add_follower(follower, followed) }.to raise_error(Users::NotRegisteredError)
-      end
+      expect(@repo.user_named("koko")).to eql User.new("koko")
     end
   end
 end

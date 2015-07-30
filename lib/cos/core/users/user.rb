@@ -9,4 +9,8 @@ class User
   def add_follower(follower_name)
     @followers << follower_name
   end
+
+  def eql?(other)
+    username = other.username
+  end
 end

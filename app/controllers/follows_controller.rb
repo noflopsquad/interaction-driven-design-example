@@ -8,4 +8,10 @@ class FollowsController < ApplicationController
       render json: { error: 'There was an error during the following action' }, status: 500
     end
   end
+
+  def followers
+    followers_list = Queries::FollowersOfUser.do params[:followed]
+
+    render json: {followers: followers_list}, status: 200
+  end
 end
