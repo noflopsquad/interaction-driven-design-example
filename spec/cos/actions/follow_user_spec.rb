@@ -12,19 +12,19 @@ describe Actions::FollowUser do
   end
 
   it "tells the users repository to add a new follower to the followed user" do
-    expect(repo).to receive(:addFollower).with(follower, followed)
+    expect(repo).to receive(:add_follower).with(follower, followed)
 
     Actions::FollowUser.do follower, followed
   end
 
   it "succesfully adds a new follower to the followed user" do
-    allow(repo).to receive(:addFollower).with(follower, followed)
+    allow(repo).to receive(:add_follower).with(follower, followed)
 
     expect(Actions::FollowUser.do follower, followed).to be_truthy
   end
 
-  it "adds a new follower to the followed user but fails because one or both of them are not registered" do
-    allow(repo).to receive(:addFollower).with(follower, followed).and_raise(
+  it "fails adding a new follower to the followed user because one or both of them are not registered" do
+    allow(repo).to receive(:add_follower).with(follower, followed).and_raise(
       Users::NotRegisteredError
     )
 
