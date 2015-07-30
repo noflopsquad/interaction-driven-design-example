@@ -3,34 +3,38 @@ require 'spec_helper'
 RSpec.shared_examples "users repository" do
 
   describe "Registering a user" do
-    it "registers a new user if username is not registered" do
-      @repo.register('@foolano')
+    let(:user_name) { '@foolano' }
 
-      expect(@repo.registered?('@foolano')).to be_truthy
+    it "registers a new user if username is not registered" do
+      @repo.register(user_name)
+
+      expect(@repo.registered?(user_name)).to be_truthy
     end
   end
 
   describe "Adding a follower to a user" do
-    let(:follower) { '@foolano' }
-    let(:followed) { '@mengano' }
+    let(:follower_name) { '@foolano' }
+    let(:followed_name) { '@mengano' }
 
     describe "when both users are registered" do
       it "adds a follower to a followed user" do
-        @repo.register(follower)
-        @repo.register(followed)
+        @repo.register(follower_name)
+        @repo.register(followed_name)
 
-        @repo.add_follower(follower, followed)
+        @repo.add_follower(follower_name, followed_name)
 
-        expect(@repo.followers_of(followed)).to eq [follower]
+        expect(@repo.followers_of(followed_name)).to eq [follower_name]
       end
     end
   end
 
   describe "Querying for a user" do
-    it "queries for a user given its name" do
-      @repo.register("koko")
+    let(:user_name) { '@koko' }
 
-      expect(@repo.user_named("koko")).to eql User.new("koko")
+    it "queries for a user given its name" do
+      @repo.register(user_name)
+
+      expect(@repo.user_named(user_name)).to eql User.new(user_name)
     end
   end
 end
