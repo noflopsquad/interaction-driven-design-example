@@ -1,14 +1,19 @@
-require 'cos/core/users/users_service'
-require 'cos/core/users/exceptions'
-
 module Actions
   class RegisterUser
 
     def self.do username
-      Users::UsersService.register username
+      if already_registered? username
+        return false
+      end
+
+      Users::Repository.register username
       true
-    rescue Users::AlreadyRegisteredError
-      false
+    end
+
+    private
+
+    def self.already_registered? username
+      Users::Repository.registered? username
     end
   end
 end

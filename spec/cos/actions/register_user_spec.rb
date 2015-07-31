@@ -3,29 +3,30 @@ require 'cos/actions/register_user'
 
 describe Actions::RegisterUser do
 
-  let(:users_service) { double('UsersService') }
+  let(:users_repository) { double('UsersRepository') }
+  let(:new_user_name) {'@foolano'}
 
   before do
-    stub_const('Users::UsersService', users_service)
+    stub_const('Users::Repository', users_repository)
   end
 
-  it "tells users service to register the user" do
-    expect(users_service).to receive(:register).with('@foolano')
+  it "collaborates with users repository" do
+    expect(users_repository).to receive(:registered?).with(new_user_name)
+    expect(users_repository).to receive(:register).with(new_user_name)
 
-    Actions::RegisterUser.do('@foolano')
+    expect(Actions::RegisterUser.do(new_user_name)).to be_truthy
   end
 
-  it "registers a new user" do
-    allow(users_service).to receive(:register).with('@foolano')
+  it "can register a user that is not already registered" do
+    allow(users_repository).to receive(:registered?).with(new_user_name).and_return(false)
+    expect(users_repository).to receive(:register).with(new_user_name)
 
-    expect(Actions::RegisterUser.do('@foolano')).to be_truthy
+    expect(Actions::RegisterUser.do(new_user_name)).to be_truthy
   end
 
-  it "tries to register an already registered user" do
-    allow(users_service).to receive(:register)
-      .with('@foolano')
-      .and_raise(Users::AlreadyRegisteredError)
+  it "fails when trying to register a user that is already registered" do
+    allow(users_repository).to receive(:registered?).with(new_user_name).and_return(true)
 
-    expect(Actions::RegisterUser.do('@foolano')).to be_falsy
+    expect(Actions::RegisterUser.do(new_user_name)).to be_falsy
   end
 end

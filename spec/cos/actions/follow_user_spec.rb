@@ -2,31 +2,38 @@ require 'spec_helper'
 require 'cos/actions/follow_user'
 
 describe Actions::FollowUser do
-  let(:users_service) { double('UsersService') }
-  let(:follower) { "foolano" }
-  let(:followed) { "mengano" }
+
+  let(:follower_name) { "foolano" }
+  let(:followed_name) { "mengano" }
+  let(:users_repository) { double('UsersRepository') }
 
   before do
-    stub_const('Users::UsersService', users_service)
+    stub_const('Users::Repository', users_repository)
   end
 
-  it "tells the users service to add a new follower to the followed user" do
-    expect(users_service).to receive(:follow).with(follower, followed)
+  describe "when both users are registered" do
+    it "succesfully adds a follower to a followed user" do
+      allow(users_repository).to receive(:registered?).with(follower_name).and_return(true)
+      allow(users_repository).to receive(:registered?).with(followed_name).and_return(true)
+      expect(users_repository).to receive(:add_follower)
 
-    Actions::FollowUser.do follower, followed
+      expect(Actions::FollowUser.do follower_name, followed_name).to be_truthy
+    end
   end
 
-  it "succesfully adds a new follower to the followed user" do
-    allow(users_service).to receive(:follow).with(follower, followed)
+  describe "when any of them is not registered" do
+    it "raises an error when trying to add a registered follower to a followed user that does not exist" do
+      allow(users_repository).to receive(:registered?).with(follower_name).and_return(true)
+      allow(users_repository).to receive(:registered?).with(followed_name).and_return(false)
 
-    expect(Actions::FollowUser.do follower, followed).to be_truthy
-  end
+      expect(Actions::FollowUser.do follower_name, followed_name).to be_falsy
+    end
 
-  it "fails adding a new follower to the followed user because one or both of them are not registered" do
-    allow(users_service).to receive(:follow).with(follower, followed).and_raise(
-      Users::NotRegisteredError
-    )
+    it "raises an error when trying to add a follower that does not exist to a registered followed user" do
+      allow(users_repository).to receive(:registered?).with(follower_name).and_return(false)
+      allow(users_repository).to receive(:registered?).with(followed_name).and_return(true)
 
-    expect(Actions::FollowUser.do follower, followed).to be_falsy
+      expect(Actions::FollowUser.do follower_name, followed_name).to be_falsy
+    end
   end
 end
