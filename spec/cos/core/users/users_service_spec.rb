@@ -1,6 +1,5 @@
 require 'cos/core/users/users_service'
 require 'cos/core/users/exceptions'
-require 'cos/core/users/user'
 
 describe "users service" do
   let(:users_repository) { double('UsersRepository') }
@@ -62,8 +61,8 @@ describe "users service" do
 
       it "collaborates with the users repository to get the list of followers" do
         allow(users_repository).to receive(:followers_of)
-          .with(followed_user_name)
-          .and_return(follower_names)
+        .with(followed_user_name)
+        .and_return(follower_names)
 
         followers = Users::UsersService.followers_of(followed_user_name)
 

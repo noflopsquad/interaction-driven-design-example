@@ -1,5 +1,3 @@
-require 'cos/core/users/user'
-
 module Users
   module Repositories
     class InMemory
@@ -36,6 +34,24 @@ module Users
 
       def add_new_user_named(username)
         @registered_users[username] = User.new(username)
+      end
+
+      public
+      class User
+        attr_reader :username, :followers
+
+        def initialize(username)
+          @username = username
+          @followers = []
+        end
+
+        def add_follower(follower_name)
+          @followers << follower_name
+        end
+
+        def eql?(other)
+          username = other.username
+        end
       end
     end
   end
