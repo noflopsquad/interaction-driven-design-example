@@ -12,8 +12,28 @@ module Users
         false
       end
 
+      def add_follower follower_name, followed_name
+        FollowersDocument.create follower_name: follower_name, followed_name: followed_name
+      end
+
+      def followers_of followed_name
+        FollowersDocument.where(followed_name: followed_name).pluck(:follower_name)
+      end
+
+      def user_named user_name
+        user_document = UserDocument.find_by user_name: user_name
+        User.new user_document[:user_name]
+      end
+
     end
   end
+end
+
+class FollowersDocument
+
+  include Mongoid::Document
+  include Mongoid::Attributes::Dynamic
+
 end
 
 class UserDocument
