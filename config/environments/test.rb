@@ -1,9 +1,7 @@
-require 'cos/infrastructure/repository_registry'
 require 'infrastructure/users/repositories/mongoid'
 
 Rails.application.configure do
-  RepositoryRegistry.register(:user, Users::Repositories::Mongoid.new)
-  Users::Repository = RepositoryRegistry.for(:user)  
+  Users::Repository = Users::Repositories::Mongoid.new
 
   # Settings specified here will take precedence over those in config/application.rb.
 
