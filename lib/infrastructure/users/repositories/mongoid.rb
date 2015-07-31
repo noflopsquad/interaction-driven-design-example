@@ -20,11 +20,6 @@ module Users
         FollowersDocument.where(followed_name: followed_name).pluck(:follower_name)
       end
 
-      def user_named user_name
-        user_document = UserDocument.find_by user_name: user_name
-        User.new user_document[:user_name]
-      end
-
     end
   end
 end

@@ -11,19 +11,19 @@ describe Actions::FollowUser do
   end
 
   it "tells the users service to add a new follower to the followed user" do
-    expect(users_service).to receive(:add_follower).with(follower, followed)
+    expect(users_service).to receive(:follow).with(follower, followed)
 
     Actions::FollowUser.do follower, followed
   end
 
   it "succesfully adds a new follower to the followed user" do
-    allow(users_service).to receive(:add_follower).with(follower, followed)
+    allow(users_service).to receive(:follow).with(follower, followed)
 
     expect(Actions::FollowUser.do follower, followed).to be_truthy
   end
 
   it "fails adding a new follower to the followed user because one or both of them are not registered" do
-    allow(users_service).to receive(:add_follower).with(follower, followed).and_raise(
+    allow(users_service).to receive(:follow).with(follower, followed).and_raise(
       Users::NotRegisteredError
     )
 

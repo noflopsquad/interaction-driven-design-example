@@ -24,11 +24,11 @@ module Users
         user_named(followed_name).followers
       end
 
+      private
+
       def user_named(username)
         @registered_users.fetch(username)
       end
-
-      private
 
       def contains_user_named?(username)
         @registered_users.has_key?(username)

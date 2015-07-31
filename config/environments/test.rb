@@ -1,4 +1,10 @@
+require 'cos/infrastructure/repository_registry'
+require 'infrastructure/users/repositories/mongoid'
+
 Rails.application.configure do
+  RepositoryRegistry.register(:user, Users::Repositories::Mongoid.new)
+  Users::Repository = RepositoryRegistry.for(:user)  
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's

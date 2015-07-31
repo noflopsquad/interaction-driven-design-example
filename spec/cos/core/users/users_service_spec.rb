@@ -61,22 +61,15 @@ describe "users service" do
       let(:followed_user_name) {"koko"}
 
       it "collaborates with the users repository to get the list of followers" do
-        allow(users_repository).to receive(:user_named)
+        allow(users_repository).to receive(:followers_of)
           .with(followed_user_name)
-          .and_return(a_user_with_some_followers(followed_user_name, follower_names))
+          .and_return(follower_names)
 
         followers = Users::UsersService.followers_of(followed_user_name)
 
         expect(followers).to eq follower_names
       end
 
-      def a_user_with_some_followers(followed_user_name, follower_names)
-        followed_user = User.new(followed_user_name)
-        follower_names.each do |follower_name|
-          followed_user.add_follower(follower_name)
-        end
-        followed_user
-      end
     end
   end
 end

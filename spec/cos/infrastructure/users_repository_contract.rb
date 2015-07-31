@@ -32,13 +32,4 @@ RSpec.shared_examples "users repository" do
     end
   end
 
-  describe "Querying for a user" do
-    let(:user_name) { '@koko' }
-
-    it "queries for a user given its name" do
-      @repo.register(user_name)
-
-      expect(@repo.user_named(user_name)).to eql User.new(user_name)
-    end
-  end
 end

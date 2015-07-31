@@ -9,11 +9,11 @@ module Users
 
     def self.follow(follower_name, followed_name)
       check_both_registered(follower_name, followed_name)
-      Users::Repository.add_follower(follower_name)
+      Users::Repository.add_follower(follower_name, followed_name)
     end
 
     def self.followers_of(followed_name)
-      Users::Repository.user_named(followed_name).followers
+      Users::Repository.followers_of(followed_name)
     end
 
     private
