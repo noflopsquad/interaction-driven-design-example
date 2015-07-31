@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cos/queries/followers_of_user'
+require 'cos/queries/users/followers_of_user'
 
 describe Queries::FollowersOfUser do
 

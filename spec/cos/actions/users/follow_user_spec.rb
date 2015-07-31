@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cos/actions/follow_user'
+require 'cos/actions/users/follow_user'
 
 describe Actions::FollowUser do
 

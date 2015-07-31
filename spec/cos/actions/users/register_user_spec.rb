@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'cos/actions/register_user'
+require 'cos/actions/users/register_user'
 
 describe Actions::RegisterUser do
 
