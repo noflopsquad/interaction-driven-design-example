@@ -10,13 +10,6 @@ describe Actions::RegisterUser do
     stub_const('Users::Repository', users_repository)
   end
 
-  it "collaborates with users repository" do
-    expect(users_repository).to receive(:registered?).with(new_user_name)
-    expect(users_repository).to receive(:register).with(new_user_name)
-
-    expect(Actions::RegisterUser.do(new_user_name)).to be_truthy
-  end
-
   it "can register a user that is not already registered" do
     allow(users_repository).to receive(:registered?).with(new_user_name).and_return(false)
     expect(users_repository).to receive(:register).with(new_user_name)
