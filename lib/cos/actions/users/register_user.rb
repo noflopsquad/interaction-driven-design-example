@@ -1,13 +1,14 @@
+require 'cos/core/users/errors'
+
 module Actions
   class RegisterUser
 
     def self.do username
       if already_registered? username
-        return false
+        raise Users::AlreadyRegisteredError
       end
 
       Users::Repository.register username
-      true
     end
 
     private
