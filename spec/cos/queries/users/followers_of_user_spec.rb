@@ -12,7 +12,7 @@ describe Queries::FollowersOfUser do
   end
 
   describe "Getting the followers of a user" do
-    it "collaborates with the users repository to get the list of followers" do
+    it "returns the list of followers" do
       allow(users_repository).to receive(:followers_of)
       .with(followed_name)
       .and_return(follower_names)
