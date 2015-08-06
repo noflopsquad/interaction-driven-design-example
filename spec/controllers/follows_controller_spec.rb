@@ -40,14 +40,8 @@ RSpec.describe FollowsController, type: :controller do
       stub_const('Queries::FollowersOfUser', query)
     end
 
-    it "delegates to followers query" do
-      expect(query).to receive(:do).with(followed_name)
-
-      get :followers, {followed: followed_name}
-    end
-
     it "returns a JSON with the list of followers" do
-      allow(query).to receive(:do).with(followed_name).and_return(['pepe', 'koko'])
+      expect(query).to receive(:do).with(followed_name).and_return(['pepe', 'koko'])
 
       get :followers, {followed: followed_name}
 
