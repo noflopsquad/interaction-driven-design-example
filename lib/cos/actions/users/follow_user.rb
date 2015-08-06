@@ -1,12 +1,13 @@
+require 'cos/core/users/errors'
+
 module Actions
   class FollowUser
     def self.do follower_name, followed_name
       if any_not_registered?(follower_name, followed_name)
-        return false
+        raise Users::NonRegisteredError
       end
 
       Users::Repository.add_follower(follower_name, followed_name)
-      true
     end
 
     private

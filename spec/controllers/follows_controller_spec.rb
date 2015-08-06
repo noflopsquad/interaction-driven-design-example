@@ -18,7 +18,7 @@ RSpec.describe FollowsController, type: :controller do
     end
 
     it "returns a JSON confirming that the action was succesful" do
-      allow(action).to receive(:do).with(follower_name, followed_name).and_return(true)
+      allow(action).to receive(:do).with(follower_name, followed_name)
 
       post :follow, { follower: follower_name, followed: followed_name }
 
@@ -27,7 +27,9 @@ RSpec.describe FollowsController, type: :controller do
     end
 
     it "returns a JSON with an error message if there was an error during the following action" do
-      allow(action).to receive(:do).with(follower_name, followed_name).and_return(false)
+      allow(action).
+        to receive(:do).with(follower_name, followed_name).
+        and_raise(Users::NonRegisteredError)
 
       post :follow, { follower: follower_name, followed: followed_name }
 
