@@ -1,5 +1,4 @@
 class RegistrationsController < ApplicationController
-
   def register
     begin
       Actions::RegisterUser.do params[:username]
