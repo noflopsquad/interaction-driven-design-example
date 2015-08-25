@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'infrastructure/users/repositories/mongoid'
-require_relative '../cos/infrastructure/users_repository_contract'
+require_relative '../cos/repositories_contracts/users_repository_contract'
 
 describe "In memory users repository" do
 
