@@ -20,7 +20,7 @@ RSpec.describe RegistrationsController, type: :controller do
 
     it "returns a JSON with an error message when the username is already registered" do
       allow(action).to receive(:do).with('@foolano').
-        and_raise(Users::AlreadyRegisteredError)
+        and_raise(Users::Errors::AlreadyRegistered)
 
       post :register, { username: '@foolano' }
 

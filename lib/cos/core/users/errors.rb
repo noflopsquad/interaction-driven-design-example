@@ -1,7 +1,9 @@
 module Users
-  class NonRegisteredError < StandardError
-  end
+  module Errors
+    class NonRegistered < StandardError
+    end
 
-  class AlreadyRegisteredError < StandardError
+    class AlreadyRegistered < StandardError
+    end
   end
 end

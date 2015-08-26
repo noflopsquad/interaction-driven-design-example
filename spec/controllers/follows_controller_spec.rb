@@ -23,7 +23,7 @@ RSpec.describe FollowsController, type: :controller do
     it "returns a JSON with an error message if there was an error during the following action" do
       allow(action).
         to receive(:do).with(follower_name, followed_name).
-        and_raise(Users::NonRegisteredError)
+        and_raise(Users::Errors::NonRegistered)
 
       post :follow, { follower: follower_name, followed: followed_name }
 

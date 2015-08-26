@@ -34,7 +34,7 @@ describe Actions::FollowUser do
           to receive(:registered?).with(followed_name).and_return(false)
 
         expect {Actions::FollowUser.do follower_name, followed_name}.
-          to raise_error(Users::NonRegisteredError)
+          to raise_error(Users::Errors::NonRegistered)
       end
 
       it "raises an error when trying to add a follower that does not exist to a registered followed user" do
@@ -44,7 +44,7 @@ describe Actions::FollowUser do
           to receive(:registered?).with(followed_name).and_return(true)
 
         expect{Actions::FollowUser.do follower_name, followed_name}.
-          to raise_error(Users::NonRegisteredError)
+          to raise_error(Users::Errors::NonRegistered)
       end
     end
   end

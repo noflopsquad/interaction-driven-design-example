@@ -27,7 +27,7 @@ describe Actions::RegisterUser do
         to receive(:registered?).with(new_user_name).and_return(true)
 
       expect{Actions::RegisterUser.do(new_user_name)}.
-        to raise_error(Users::AlreadyRegisteredError)
+        to raise_error(Users::Errors::AlreadyRegistered)
     end
   end
 end

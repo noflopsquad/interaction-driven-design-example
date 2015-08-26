@@ -5,7 +5,7 @@ module Actions
 
     def self.do username
       if already_registered? username
-        raise Users::AlreadyRegisteredError
+        raise Users::Errors::AlreadyRegistered
       end
 
       Users::Repository.register username

@@ -3,7 +3,7 @@ class RegistrationsController < ApplicationController
     begin
       Actions::RegisterUser.do params[:username]
       render json: { username: params[:username] }, status: 200
-    rescue Users::AlreadyRegisteredError
+    rescue Users::Errors::AlreadyRegistered
       render json: { error: "User #{params[:username]} is already registered" }, status: 500
     end
   end
